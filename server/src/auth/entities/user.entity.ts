@@ -9,6 +9,7 @@ import * as bcrypt from 'bcrypt';
 import { Address } from 'src/address/entities/address.entity';
 import { Order } from 'src/orders/entities/order.entity';
 import { Orderdetail } from 'src/orderdetails/entities/orderdetail.entity';
+import { Payment } from 'src/payment/entities/payment.entity';
 
 @Entity({ name: 'user' })
 export class UserEntity {
@@ -44,4 +45,7 @@ export class UserEntity {
 
   @OneToMany(() => Orderdetail, (orderdetail) => orderdetail.user)
   orderdetail: Orderdetail[];
+
+  @OneToMany(() => Payment, (payment) => payment.user)
+  Payment: Payment[];
 }

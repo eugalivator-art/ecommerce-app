@@ -35,7 +35,6 @@ export class OrdersService {
     }).then((data) => {
       if (!data) throw new NotFoundException();
       return data;
-      
     });
   }
 

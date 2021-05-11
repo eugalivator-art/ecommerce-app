@@ -20,7 +20,7 @@ export class OrderdetailsController {
 
   @Get()
   findAll(@Request() req:any) {
-    return this.orderdetailsService.findAll(req.userId, req.body.orderId);
+    return this.orderdetailsService.findAll(req.user.userId, req.body.orderId);
   }
 
   @Get(':id')

@@ -1,5 +1,6 @@
 import { UserEntity } from "src/auth/entities/user.entity";
 import { Orderdetail } from "src/orderdetails/entities/orderdetail.entity";
+import { Payment } from "src/payment/entities/payment.entity";
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
@@ -25,5 +26,8 @@ export class Order {
 
     @OneToMany(() => Orderdetail, (orderdetail) => orderdetail.orderId)
     orderdetail: Orderdetail[];
+
+    @OneToMany(() => Payment, (payment) => payment.paymentId)
+    payment: Payment[];
 
 }

@@ -33,7 +33,7 @@ export class OrderdetailsService {
 
   findAll(uid: string, oid: number) {
     return this.orderDetailRepository.find({
-      where: { orderId: oid }
+      where: { orderId: oid, userId:uid }
     }).then((data) => {
       if (data.length == 0) throw new NotFoundException();
       return data;
@@ -45,12 +45,13 @@ export class OrderdetailsService {
   }
 
   
-
   update(id: number, updateOrderdetailDto: UpdateOrderdetailDto) {
     return `This action updates a #${id} orderdetail`;
   }
 
   remove(id: number) {
-    return `This action removes a #${id} orderdetail`;
+    return this.orderDetailRepository.delete({
+      orderDetailId:id
+    });
   }
 }

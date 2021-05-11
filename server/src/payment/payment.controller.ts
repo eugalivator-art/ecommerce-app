@@ -1,20 +1,24 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Request, UseGuards } from '@nestjs/common';
 import { PaymentService } from './payment.service';
 import { CreatePaymentDto } from './dto/create-payment.dto';
 import { UpdatePaymentDto } from './dto/update-payment.dto';
+import { ApiTags } from '@nestjs/swagger';
+import { JwtAuthGuard } from 'src/auth/jwt.guard';
 
+@ApiTags('Payment')
 @Controller('payment')
+@UseGuards(JwtAuthGuard)  
 export class PaymentController {
   constructor(private readonly paymentService: PaymentService) {}
 
   @Post()
-  create(@Body() createPaymentDto: CreatePaymentDto) {
-    return this.paymentService.create(createPaymentDto);
+  create(@Request() req: any, @Body() createPaymentDto: CreatePaymentDto) {
+    return this.paymentService.create(req.user.userId, req.body.orderId,createPaymentDto);
   }
 
   @Get()
-  findAll() {
-    return this.paymentService.findAll();
+  findAll(@Request() req: any) {
+    return this.paymentService.findAll(req.user.userId, req.body.orderId);
   }
 
   @Get(':id')
