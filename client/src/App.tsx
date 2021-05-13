@@ -29,11 +29,13 @@ class App extends React.Component<{}, State> {
           <Currency theme={theme} />
           <LoginButtons />
         </Header>
+
         <ThemeContext.Provider value={theme}>
           <AppRouter />
           {/* <Demo />
           <ProductList selectedCurrency={this.state.currentCurrency} /> */}
         </ThemeContext.Provider>
+        
       </BrowserRouter>
     );
   }

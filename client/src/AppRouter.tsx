@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import Container from "./components/Container";
 import ErrorPage from "./components/ErrorPage";
 import PrivateRoute from "./components/PrivateRoute";
+import CartPage from "./containers/CartPage";
 import Login from "./containers/Login";
 import ProductDetail from "./containers/ProductDetail";
 import ProductList from "./containers/ProductList";
@@ -17,10 +18,11 @@ const AppRouter: React.FC = (props) => {
       <Container fluid>
         <React.Suspense fallback={<div>Loading...</div>}>
           <Switch>
-            <Route path={"/"} component={Demo} exact />
-            <Route path={"/products"} component={ProductList} />
+            <Route path={"/products"} component={ProductList}  />
+            <Route path={"/"} component={Demo}  exact/>
             <Route path={"/login"} component={Login} />
             <PrivateRoute path={"/profile"} component={LazyProfile} />
+            <PrivateRoute path={"/cart"} component={CartPage} />
             <Route path={"/productdetail/:id"} component={ProductDetail} />
 
             {/* 404 Route */}

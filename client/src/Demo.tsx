@@ -18,7 +18,7 @@ class Demo extends React.Component<{}, State> {
         <Column size={12}>
           <h1>Demo Component</h1>
           <p>Some html content</p>
-          {this.state.count > 6 ? <p>Hello from {name.toUpperCase()}</p> : null}
+          {/* {this.state.count > 6 ? <p>Hello from {name.toUpperCase()}</p> : null}
           <p>{7 + 3}</p>
           <button
             onClick={() => this.setState({ no: 1 })}
@@ -39,7 +39,7 @@ class Demo extends React.Component<{}, State> {
             }
           >
             Increment count
-          </button>
+          </button> */}
         </Column>
       </div>
     );

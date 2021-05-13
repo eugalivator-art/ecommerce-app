@@ -12,4 +12,5 @@ const Column: React.FC<Props> = ({ classes, size, children }) => {
   const cls = `col-md-${size}`;
   return <div className={`${cls} ${color} ${classes}`}>{children}</div>;
 };
+
 export default Column;

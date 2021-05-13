@@ -18,12 +18,17 @@ type Props = {
   hideLoader: () => void;
   addItem: (product: ProductType) => void;
 } & RouteComponentProps;
+
 type State = { plist: ProductType[]; totalPages: number; pageNumber: number };
+
 class ProductList extends React.Component<Props, State> {
+
   state: State = { plist: [], totalPages: 0, pageNumber: 1 };
+
   componentDidMount() {
     this.getData();
   }
+
   async getData() {
     try {
       this.props.showLoader();
@@ -39,18 +44,21 @@ class ProductList extends React.Component<Props, State> {
       this.props.hideLoader();
     }
   }
+
   addToCart(product: ProductType) {
     this.props.addItem(product); // add to cart logic
-    this.props.history.push("/cart"); // redirect to cart page
+    // this.props.history.push("/cart"); // redirect to cart page
   }
+
   updateData = (page: number) =>
     this.setState({ pageNumber: page }, () => this.getData());
+  
   render() {
     return (
       <LoadingWrapper>
         <Row>
           {this.state.plist.map((val) => (
-            <Column size={3} classes={"my-3"}>
+            <Column size={3} classes={"my-3 "}>
               <Product
                 btnClick={() => this.addToCart(val)}
                 pdata={val}

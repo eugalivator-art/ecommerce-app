@@ -9,6 +9,7 @@ import { MenuType } from "../types";
 type Props = {
   theme: string;
 };
+
 type State = {
   menuItems: MenuType[];
 };

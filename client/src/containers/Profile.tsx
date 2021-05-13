@@ -22,4 +22,5 @@ class Profile extends React.Component<Props, State> {
     );
   }
 }
+
 export default Profile;

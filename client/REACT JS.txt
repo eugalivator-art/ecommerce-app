@@ -264,7 +264,7 @@ Shop-app
 
     RENDER BEHAVIOR
     Component
-    PureComponent
+    PureComponent= checks value and then reloads
 
     FORMS
     Controlled (recommended) : state : V-DOM : React env
