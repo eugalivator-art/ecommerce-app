@@ -10,6 +10,13 @@ const login = (email: string, password: string) => {
     .catch((e) => Promise.reject(e.response.data));
 };
 
+const register = (email: string, password: string, name:string) => {
+  const url = `${constants.BASE_URL}/auth/register`;
+  return axios
+    .post<LoginResponseType>(url, { email, password, name })
+    .catch((e) => Promise.reject(e.response.data));
+};
+
 const profile = () => {
   const url = `${constants.BASE_URL}/auth/profile`;
   return StorageService.getData("token").then((token) =>
@@ -19,4 +26,4 @@ const profile = () => {
   );
 };
 
-export default { login, profile };
+export default { login, profile, register };

@@ -4,7 +4,7 @@ import CurrencyActions from "../actions/CurrencyActions";
 // reducer(store_data,action)
 // state : initialise
 type IAction = {
-  code: string;
+code: string;
 } & Action;
 function currencyReducer(store = "INR", action: IAction) {
   switch (action.type) {
