@@ -1,6 +1,6 @@
 import axios from "axios";
 import constants from "../constants";
-import { LoginResponseType } from "../types";
+import { LoginResponseType, RegisterResponseType } from "../types";
 import StorageService from "./StorageService";
 
 const login = (email: string, password: string) => {
@@ -13,7 +13,7 @@ const login = (email: string, password: string) => {
 const register = (email: string, password: string, name:string) => {
   const url = `${constants.BASE_URL}/auth/register`;
   return axios
-    .post<LoginResponseType>(url, { email, password, name })
+    .post<RegisterResponseType>(url, { email, password, name })
     .catch((e) => Promise.reject(e.response.data));
 };
 

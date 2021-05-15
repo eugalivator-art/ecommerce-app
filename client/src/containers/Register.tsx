@@ -1,51 +1,46 @@
 import React, { SyntheticEvent } from "react";
-import { connect } from "react-redux";
 import { RouteComponentProps } from "react-router";
 import { Redirect } from "react-router-dom";
-import { Dispatch } from "redux";
 import Column from "../components/Column";
 import LoadingWrapper from "../components/LoadingWrapper";
 import Row from "../components/Row";
 import TextBox from "../components/TextBox";
-import StorageService from "../services/StorageService";
 import UserService from "../services/UserService";
-import LoadingActions from "../store/actions/LoadingActions";
-import UserActions from "../store/actions/UserActions";
-import { StoreType } from "../types";
-import formatter from "../utils/formatter";
-type LoginProps = {
+
+type RegisterProps = {
   signinSuccess: (user: object) => void;
   signinError: (error: string) => void;
   showLoader: () => void;
   hideLoader: () => void;
   isAuthenticated: boolean;
-  errorMessage: string | null;
 } & RouteComponentProps;
-type LoginState = { email: string; password: string; name:string };
-class Login extends React.Component<LoginProps, LoginState> {
-    state: LoginState = { email: "", password: "", name: "" };
+
+type RegisterState = { email: string; password: string; name: string, errorMessage: string | null, returnName: string};
+
+class Register extends React.Component<RegisterProps, RegisterState> {
+    state: RegisterState = { email: "", password: "", name: "", errorMessage: "", returnName:""};
     
-  login = async (e: SyntheticEvent) => {
+  register = async (e: SyntheticEvent) => {
     try {
-      e.preventDefault();
-      const { email, password, name } = this.state;
-      this.props.showLoader();
-      const { data } = await UserService.register(email, password, name);
-    
-      this.props.hideLoader();
+        e.preventDefault();
+        console.log(e)
+        const { email, password, name } = this.state;
+        const { data } = await UserService.register(email, password, name);
+        console.log(data)
+        this.setState({returnName: data.userName})
+
+      
     } catch (e) {
-      this.props.hideLoader();
+        this.setState({ errorMessage: e.message })
     }
   };
-  render() {
-    if (this.props.isAuthenticated) {
-      let lastPage = "/login"; // by default home page
-      const state: any = this.props.location.state;
-      if (state && state.from) {
-        lastPage = state.from; // last page path
-      }
-      return <Redirect to={lastPage} />;
+    render() {
+      if (this.state.returnName) {
+
+      return <Redirect to={"/login"} />;
     }
+    
+    
     return (
       <LoadingWrapper>
         <Row>
@@ -57,8 +52,8 @@ class Login extends React.Component<LoginProps, LoginState> {
           >
             <h2>Register</h2>
             <hr />
-            <small className="text-danger">{this.props.errorMessage}</small>
-            <form onSubmit={this.login}>
+            <small className="text-danger">{this.state.errorMessage}</small>
+            <form onSubmit={this.register}>
                 
               <TextBox
                 placeholder={"Name"}
@@ -78,7 +73,7 @@ class Login extends React.Component<LoginProps, LoginState> {
               />
               
                       
-              <button className={"btn btn-warning w-100 text-uppercase"}>
+              <button className={"btn btn-success w-100 text-uppercase"}>
                             Register
               </button>
                         
@@ -90,10 +85,7 @@ class Login extends React.Component<LoginProps, LoginState> {
   }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  return {
-    hideLoader: () => dispatch(LoadingActions.hideLoader()),
-    showLoader: () => dispatch(LoadingActions.showLoader()),
-  };
-};
-export default connect(mapDispatchToProps)(Login);
+
+
+
+export default Register ;

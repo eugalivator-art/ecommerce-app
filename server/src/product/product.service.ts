@@ -3,7 +3,7 @@ import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Product } from './entities/product.entity';
-import { Like, Repository } from 'typeorm';
+import { Between, Like, Repository } from 'typeorm';
 import {
   uniqueNamesGenerator,
   adjectives,
@@ -45,6 +45,33 @@ export class ProductService {
         order: { productId: 'ASC' },
       })
       .then((d) => ({ totalItems: d[1], data: d[0] }));
+  }
+
+  filterByPrice(min: number, max: number) {
+    return this.productRepository.find({
+      where: { productPrice: Between(min, max) },
+    });
+  }
+
+    sort(field: string, order: string) {
+    if (field === "price" && order === "ascending")
+      return this.productRepository.find({
+        order: {
+          productPrice: "ASC",
+        },
+      });
+    else if (field === "price" && order === "descending")
+      return this.productRepository.find({
+        order: {
+          productPrice: "DESC",
+        },
+      });
+    else if (field === "name")
+      return this.productRepository.find({
+        order: {
+          productName: "ASC",
+        },
+      });
   }
 
   findOne(id: number) {

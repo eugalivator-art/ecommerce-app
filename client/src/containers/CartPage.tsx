@@ -95,6 +95,7 @@ class CartPage extends Component<Props, State> {
                     <Link className="btn w-50 btn-primary mx-auto mt-5 text-uppercase" to={"/checkout"}>
                         Proceed to checkout
                     </Link>
+                    
                     </Row>
                 </LoadingWrapper>
         )

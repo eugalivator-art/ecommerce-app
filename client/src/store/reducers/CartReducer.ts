@@ -15,17 +15,21 @@ function cartReducer(store: CartType[] = [], action: IAction) {
     case CartActions.ActionTypes.REMOVE_ITEM:
       return store.filter((prod) => prod.productId !== action.id);
     
-    // case CartActions.ActionTypes.INCREAMENT:
-    //   return {
-    //   const index = store.cart.findIndex(todo => cart.productId !== action.id)
-    // };
+    case CartActions.ActionTypes.INCREAMENT:
+      return (store.map((prod) => {
+        if (prod.productId === action.idno) {
+          prod.productQty++
+         }
+         return prod
+    }));
     
-    // case CartActions.ActionTypes.DECREAMENT:
-    //    return (store.map((prod) => {
-    //     if (prod.productId === action.id) {
-    //       prod.productQty--
-    //     }
-    //   } ))
+    case CartActions.ActionTypes.DECREAMENT:
+      return (store.map((prod) => {
+        if (prod.productId === action.id) {
+          prod.productQty--
+        }
+        return prod
+      }));
     
     default:
       return store;

@@ -36,6 +36,11 @@ export type LoginResponseType = {
   access_token: string;
 };
 
+export type RegisterResponseType = {
+  userName: string;
+  userEmail: number;
+};
+
 export type UserSessionType = {
   user: object | null;
   error: string | null;

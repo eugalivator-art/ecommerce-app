@@ -41,6 +41,17 @@ export class ProductController {
     return this.productService.fingByQuery(query);
   }
 
+  @Get("filter")
+  filterByPrice(@Query("min") min: number, @Query("max") max: number) {
+    return this.productService.filterByPrice(min, max);
+  }
+
+  @Get("sort")
+  sortByField(@Query("field") field: string, @Query("order") order: string) {
+    console.log(field, order);
+    return this.productService.sort(field, order);
+  }
+
   @ApiNotFoundResponse({ description: 'No data is found for the specified ID' })
   @ApiOkResponse({ description: 'Product Data found' })
   @Get(':id')
