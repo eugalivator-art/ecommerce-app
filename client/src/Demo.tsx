@@ -1,5 +1,7 @@
 import React from "react";
 import Column from "./components/Column";
+import banner from "./img/banner.jpg"
+import banner2 from "./img/banner2.jpg"
 
 type State = { no: number; count: number };
 class Demo extends React.Component<{}, State> {
@@ -16,8 +18,10 @@ class Demo extends React.Component<{}, State> {
     return (
       <div className="row">
         <Column size={12}>
-          <h1>Demo Component</h1>
-          <p>Some html content</p>
+
+          <div><img className="img-fluid" src={banner} alt="img1" /></div>
+          <div><img className="img-fluid mt-4" src={banner2} alt="img2" /></div>
+          
           {/* {this.state.count > 6 ? <p>Hello from {name.toUpperCase()}</p> : null}
           <p>{7 + 3}</p>
           <button

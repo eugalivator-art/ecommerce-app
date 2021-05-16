@@ -28,6 +28,7 @@ export type MenuType = {
 
 export type CartType = {
   productQty: number;
+  productTotalPrice: number;
 } & ProductType;
 
 export type LoginResponseType = {

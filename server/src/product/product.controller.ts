@@ -42,8 +42,8 @@ export class ProductController {
   }
 
   @Get("filter")
-  filterByPrice(@Query("min") min: number, @Query("max") max: number) {
-    return this.productService.filterByPrice(min, max);
+  filterByPrice(@Query("min") minPrice: number, @Query("max") maxPrice: number) {
+    return this.productService.filterByPrice(minPrice, maxPrice);
   }
 
   @Get("sort")

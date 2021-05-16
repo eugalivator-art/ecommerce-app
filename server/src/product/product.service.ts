@@ -66,12 +66,6 @@ export class ProductService {
           productPrice: "DESC",
         },
       });
-    else if (field === "name")
-      return this.productRepository.find({
-        order: {
-          productName: "ASC",
-        },
-      });
   }
 
   findOne(id: number) {
