@@ -10,6 +10,7 @@ const LoginButtons: React.FC = (props) => {
   const auth = useSelector((store: StoreType) => !!store.userSession.user);
   const dispatch = useDispatch();
   const history = useHistory();
+
   if (auth) {
     return (
       <>
@@ -35,4 +36,5 @@ const LoginButtons: React.FC = (props) => {
     </Link>
   );
 };
+
 export default LoginButtons;

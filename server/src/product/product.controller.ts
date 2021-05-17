@@ -32,8 +32,17 @@ export class ProductController {
   }
 
   @Get()
-  findAll(@Query('page') page: number = 1, @Query('size') size: number = 20) {
-    return this.productService.findAll(page, size);
+  findAll(
+    @Query('page') page: number = 1,
+    @Query('size') size: number = 20,
+    @Query('q') query: string,
+    @Query('minP') minPrice: number,
+    @Query('maxP') maxPrice: number,
+    @Query('idOrder') idOrder: string = 'ASC' || 'DESC',
+    @Query('priceOrder') priceOrder: string = 'ASC' || 'DESC',
+  
+  ) {
+    return this.productService.findAll(page, size, query,  minPrice, maxPrice, idOrder, priceOrder);
   }
 
   @Get('search')

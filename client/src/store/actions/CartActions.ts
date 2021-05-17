@@ -4,7 +4,8 @@ const ActionTypes = {
   ADD_TO_CART: "[Cart] Add to cart",
   REMOVE_ITEM: "[Cart] Remove item",
   INCREAMENT: "[Cart] Increament",
-  DECREAMENT: "[Cart] Decreament"
+  DECREAMENT: "[Cart] Decreament",
+  EMPTY_CART:"[Cart] Empty"
 };
 
 const addToCart = (product: ProductType) => {
@@ -20,6 +21,12 @@ const removeItem = (id: number) => {
   };
 };
 
+const empty = () => {
+  return {
+    type:ActionTypes.EMPTY_CART,
+  }
+}
+
 const increaseQuantity = (idno: number) => {
   return {
     type: ActionTypes.INCREAMENT,
@@ -33,4 +40,4 @@ const decreaseQuantity = (id: number) => {
     id,
   }
 }
-export default { ActionTypes, addToCart, removeItem, increaseQuantity, decreaseQuantity};
+export default { ActionTypes, addToCart, removeItem, increaseQuantity, decreaseQuantity, empty};

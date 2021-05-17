@@ -24,11 +24,14 @@ export class ProductService {
     });
   }
 
-  findAll(page: number, size: number) {
+  findAll(page: number, size: number, query: string, minPrice:number, maxPrice:number, idOrder:string, priceOrder:string) {
     return this.productRepository
       .findAndCount({
         take: size,
         skip: (page - 1) * size,
+        // where: { productName: Like(`%${query}%`), productPrice: Between(minPrice, maxPrice) },
+        // order: { productId: 'ASC', productPrice: 'ASC' },
+        
       })
       .then((res) => ({
         totalItems: res[1],

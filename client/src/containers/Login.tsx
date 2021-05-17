@@ -13,6 +13,8 @@ import LoadingActions from "../store/actions/LoadingActions";
 import UserActions from "../store/actions/UserActions";
 import { StoreType } from "../types";
 import formatter from "../utils/formatter";
+import {CartType} from "../types"
+import CartActions from "../store/actions/CartActions";
 
 type LoginProps = {
   signinSuccess: (user: object) => void;
@@ -21,6 +23,8 @@ type LoginProps = {
   hideLoader: () => void;
   isAuthenticated: boolean;
   errorMessage: string | null;
+  cartItems: CartType[];
+  emptyCart: () => void;
 } & RouteComponentProps;
 
 type LoginState = { email: string; password: string };
@@ -32,8 +36,10 @@ class Login extends React.Component<LoginProps, LoginState> {
   login = async (e: SyntheticEvent) => {
     try {
       e.preventDefault();
+
       const { email, password } = this.state;
       this.props.showLoader();
+      this.props.emptyCart();
       const { data } = await UserService.login(email, password);
       await StorageService.storeData("token", data.access_token);
       this.props.signinSuccess(data); // create/store session
@@ -92,6 +98,7 @@ const mapStoreDataToProps = (storeData: StoreType) => {
   return {
     isAuthenticated: !!storeData.userSession.user, // converting to boolean
     errorMessage: storeData.userSession.error,
+    cartItems: storeData.cart
   };
 };
 
@@ -101,6 +108,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     signinError: (err: string) => dispatch(UserActions.loginError(err)),
     hideLoader: () => dispatch(LoadingActions.hideLoader()),
     showLoader: () => dispatch(LoadingActions.showLoader()),
+    emptyCart: () => dispatch(CartActions.empty())
   };
 };
 

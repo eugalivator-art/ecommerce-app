@@ -12,20 +12,23 @@ export class Address {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ nullable: false })
   line1: string;
 
-  @Column()
+  @Column({ nullable: false })
   line2: string;
 
-  @Column()
+  @Column({ nullable: false })
   city: string;
 
-  @Column()
+  @Column({ nullable: false })
   state: string;
 
-  @Column({ type: 'integer' })
-  pincode: number;
+  @Column({ nullable: false })
+  country: string;
+
+  @Column({ nullable: false })
+  pincode: string;
 
   @Column({ type: 'datetime' })
   createdAt: string;

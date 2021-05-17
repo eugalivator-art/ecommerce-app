@@ -37,6 +37,22 @@ export type LoginResponseType = {
   access_token: string;
 };
 
+export type AddressResponseType = {
+  line1: string,
+  line2: string,
+  city: string,
+  country: string,
+  pincode: number,
+  state: string,
+}
+
+export type PostResponseType = {
+  paidAmount: number,
+  cardNo: number,
+  cvv: number,
+  expir: number
+}
+
 export type RegisterResponseType = {
   userName: string;
   userEmail: number;

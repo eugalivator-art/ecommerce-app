@@ -22,8 +22,10 @@ import { Address } from './entities/address.entity';
 export class AddressController {
   constructor(private readonly addressService: AddressService) {}
 
+  
   @Post()
   create(@Request() req: any, @Body() createAddressDto: CreateAddressDto) {
+    console.log("req")
     return this.addressService.create(req.user.userId, createAddressDto);
   }
 

@@ -10,7 +10,10 @@ type IAction = {
 function cartReducer(store: CartType[] = [], action: IAction) {
   switch (action.type) {
     case CartActions.ActionTypes.ADD_TO_CART:
-      return [...store, { ...action.product, productQty: 1, productTotalPrice:parseInt(action.product.productSalePrice) }];
+      return [...store, { ...action.product, productQty: 1, productTotalPrice: parseInt(action.product.productSalePrice) }];
+    
+    case CartActions.ActionTypes.EMPTY_CART:
+      return [];
     
     case CartActions.ActionTypes.REMOVE_ITEM:
       return store.filter((prod) => prod.productId !== action.id);

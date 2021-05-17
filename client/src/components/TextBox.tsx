@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 type Props = {
   label?: string;
-  type: "text" | "password" | "email";
+  type: "text" | "password" | "email" |"number";
   textChange: (value: string) => void;
   placeholder?: string;
 };
@@ -24,6 +24,7 @@ const TextBox: React.FC<Props> = ({ label, type, textChange, placeholder }) => {
         placeholder={placeholder}
         onBlur={() => setTouched(true)}
         onChange={(e) => setValue(e.target.value)}
+        required
       />
       {touched && value.trim() === "" ? (
         <small className="text-danger">This field is required</small>

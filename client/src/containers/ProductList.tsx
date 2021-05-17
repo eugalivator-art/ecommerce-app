@@ -57,6 +57,7 @@ class ProductList extends React.Component<Props, State> {
     return (
       <LoadingWrapper>
         <Row>
+          <div>yoyoy</div>
           {this.state.plist.map((val) => (
             <Column size={3} classes={"my-3 "}>
               <Product
