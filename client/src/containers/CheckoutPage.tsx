@@ -24,11 +24,12 @@ type State = {
     cardNo: string,
     cvv: string,
     expiration: string,
+    oid:  number
 }
 
 class CheckoutPage extends Component<Props, State> {
 
-    state: State = { line1: "", line2: "", city: "", state: "",country:"", pincode:0, totalAmount:0, cardNo:"", cvv:"", expiration:"",  }
+    state: State = { line1: "", line2: "", city: "", state: "",country:"", pincode:0, totalAmount:0, cardNo:"", cvv:"", expiration:"", oid:0 }
     
     subtotal = () => {
         let total = 0;
@@ -38,22 +39,65 @@ class CheckoutPage extends Component<Props, State> {
         return total
     }
 
-    submitAddress = async (e:SyntheticEvent) => {
-        e.preventDefault();
-        const { line1, line2, city, state, country, pincode, } = this.state;
-        const { data } = await CheckoutService.postAddress(line1, line2, city, state, country, pincode);
-
-        console.log(data)
-       
-    }
-
-    submitPayment = async (e:SyntheticEvent) => {
-    e.preventDefault();
-        let { cardNo, cvv, expiration, totalAmount } = this.state;
+    submitOrder = async () => {
+        let { totalAmount } = this.state;
         totalAmount = this.subtotal();
-        const { data } = await CheckoutService.postPayment(totalAmount, parseInt(cardNo), parseInt(cvv), parseInt(expiration),);
-        console.log(data)
+        const { data, status } = await CheckoutService.postOrder(totalAmount);
+        this.setState({ oid: data.orderId })
+        console.log("submitOrder" + "oid " + this.state.oid)
+        console.log(status)
+        return data
     }
+
+    submitOrderDetail = async () => {
+        const { oid } = this.state;
+        this.props.cartitems.map(async (val) => {
+            const { data, request } = await CheckoutService.postOrderDetail(val.productId, oid,  val.productQty, val.productTotalPrice);
+            console.log(data);
+            console.log(request)
+            return data
+        })
+        
+    }
+
+    submitAddress = async () => {
+        const { line1, line2, city, state, country, pincode, oid } = this.state;
+        const { data } = await CheckoutService.postAddress(line1, line2, city, state, country, pincode, oid );
+        console.log(data)
+        return data
+        
+    }
+
+    submitPayment = async () => {
+        let { cardNo, cvv, expiration, totalAmount, oid } = this.state;
+        totalAmount = this.subtotal();
+        const { data } = await CheckoutService.postPayment(totalAmount, parseInt(cardNo), parseInt(cvv), parseInt(expiration), oid);
+        console.log(data)
+        return data
+    }
+
+    
+
+    submission = async (e: SyntheticEvent) => {
+        try {
+            e.preventDefault();
+
+            await this.submitOrder();
+
+            await this.submitOrderDetail();
+            
+            await this.submitAddress();
+        
+            await this.submitPayment();
+            
+        } catch (error) {
+            console.log(error)
+        }
+        
+    }
+
+    // add ordering function, pincode func, cardno func, cvv func, expiration func, 
+    // add order no to address and payment
 
     render() {
         return (
@@ -63,7 +107,7 @@ class CheckoutPage extends Component<Props, State> {
                     classes={
                         "offset-md-3 shadow-sm border p-4 text-center rounded mt-5"}
                 >
-                    <form onSubmit={ this.submitAddress}>
+                    <form onSubmit={ this.submission}>
                         
                         <h2>Address</h2>
 
@@ -103,36 +147,31 @@ class CheckoutPage extends Component<Props, State> {
 
                             <input
                                 className="form-control m-1"
-                                placeholder="Pincode"
+                                placeholder="Pincode (only number)"
                                 onChange={(e) => (this.setState({ pincode: parseInt(e.target.value) }))}
+                                max="6"
                                 required
                             />
                         </div>
 
-                        <button  className={"btn btn-success w-100 text-uppercase"}> Submit Address </button>
-
-                    </form>
-
-                    <hr />
-
-                    <form onSubmit={ this.submitPayment}>
+                        <hr />
 
                         <h2> Payment</h2>
 
                         <TextBox
-                            placeholder={"Card No"}
+                            placeholder={"Card No (only number)"}
                             type={"text"}
                             textChange={(cardNo) => this.setState({ cardNo })}
                         />
 
                         <TextBox
-                            placeholder={"CVV"}
+                            placeholder={"CVV (only number)"}
                             type={"text"}
                             textChange={(cvv) => this.setState({ cvv })}
                         />
 
                         <TextBox
-                            placeholder={"Expiring Date"}
+                            placeholder={"Expiring Date (onlynumber)"}
                             type={"text"}
                             textChange={(expiration) => this.setState({ expiration })}
                         />

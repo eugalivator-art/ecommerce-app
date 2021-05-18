@@ -75,7 +75,7 @@ class CartPage extends Component<Props, State> {
                         </Column>
                     ))}
 
-                    <h1 className="mx-auto text-center">Total Amount - {this.subtotal(this.props.cartitems)}
+                    <h1 className="mx-auto text-center">Total Amount - {this.subtotal(this.props.cartitems)} {this.props.currency}
                         {/* pass the total amount to checkout */}
                         {/* {this.state.total} {this.props.currency} */}
                     </h1>

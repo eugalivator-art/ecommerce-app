@@ -7,11 +7,12 @@ import { OrdersService } from 'src/orders/orders.service';
 import { UserService } from 'src/auth/user/user.service';
 import { Order } from 'src/orders/entities/order.entity';
 import { UserEntity } from 'src/auth/entities/user.entity';
+import { OrdersModule } from 'src/orders/orders.module';
 
 @Module({
   imports: [TypeOrmModule.forFeature(
     [Payment, Order, UserEntity]
-  )],
+  ), OrdersModule],
   controllers: [PaymentController],
   providers: [PaymentService, OrdersService, UserService]
 })

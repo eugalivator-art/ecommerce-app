@@ -17,7 +17,6 @@ export class PaymentService {
     const user = await this.userService.findById(uid);
     const order = await this.orderService.findOne(uid, oid)
     const { paidAmount, cardNo, cvv, expir } = createPaymentDto;
-    console.log(expir)
 
     return this.paymentRepository.save({
       paidAmount: paidAmount,

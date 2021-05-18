@@ -1,3 +1,4 @@
+import { Address } from "src/address/entities/address.entity";
 import { UserEntity } from "src/auth/entities/user.entity";
 import { Orderdetail } from "src/orderdetails/entities/orderdetail.entity";
 import { Payment } from "src/payment/entities/payment.entity";
@@ -29,5 +30,8 @@ export class Order {
 
     @OneToMany(() => Payment, (payment) => payment.paymentId)
     payment: Payment[];
+
+    @OneToMany(() => Address, (address) => address.id)
+    address: Address[];
 
 }

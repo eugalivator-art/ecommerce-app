@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { forwardRef, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserService } from 'src/auth/user/user.service';
 import { OrdersService } from 'src/orders/orders.service';
@@ -12,7 +12,12 @@ import { Orderdetail } from './entities/orderdetail.entity';
 export class OrderdetailsService {
 
    constructor(
-     @InjectRepository(Orderdetail) private orderDetailRepository: Repository<Orderdetail>, private userService: UserService, private productService: ProductService, private orderService: OrdersService) { }
+     @InjectRepository(Orderdetail)
+     private orderDetailRepository: Repository<Orderdetail>,
+     private orderService: OrdersService,
+     private userService: UserService,
+     private productService: ProductService,
+     ) { }
   
   async create(uid: string, pid: number, oid: number, createOrderdetailDto: CreateOrderdetailDto) {
     const user = await this.userService.findById(uid)

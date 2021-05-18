@@ -32,17 +32,8 @@ export class ProductController {
   }
 
   @Get()
-  findAll(
-    @Query('page') page: number = 1,
-    @Query('size') size: number = 20,
-    @Query('q') query: string,
-    @Query('minP') minPrice: number,
-    @Query('maxP') maxPrice: number,
-    @Query('idOrder') idOrder: string = 'ASC' || 'DESC',
-    @Query('priceOrder') priceOrder: string = 'ASC' || 'DESC',
-  
-  ) {
-    return this.productService.findAll(page, size, query,  minPrice, maxPrice, idOrder, priceOrder);
+  findAll(@Query('page') page: number = 1, @Query('size') size: number = 20) {
+    return this.productService.findAll(page, size);
   }
 
   @Get('search')
@@ -51,8 +42,8 @@ export class ProductController {
   }
 
   @Get("filter")
-  filterByPrice(@Query("min") minPrice: number, @Query("max") maxPrice: number) {
-    return this.productService.filterByPrice(minPrice, maxPrice);
+  filterByPrice(@Query("min") min: number, @Query("max") max: number) {
+    return this.productService.filterByPrice(min, max);
   }
 
   @Get("sort")

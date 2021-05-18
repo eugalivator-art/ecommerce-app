@@ -1,4 +1,5 @@
 import { UserEntity } from 'src/auth/entities/user.entity';
+import { Order } from 'src/orders/entities/order.entity';
 import {
   BeforeInsert,
   Column,
@@ -12,23 +13,23 @@ export class Address {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ nullable: false })
+  @Column()
   line1: string;
 
-  @Column({ nullable: false })
+  @Column()
   line2: string;
 
-  @Column({ nullable: false })
+  @Column()
   city: string;
 
-  @Column({ nullable: false })
+  @Column()
   state: string;
 
   @Column({ nullable: false })
   country: string;
 
-  @Column({ nullable: false })
-  pincode: string;
+  @Column({ type: 'integer' })
+  pincode: number;
 
   @Column({ type: 'datetime' })
   createdAt: string;
@@ -36,4 +37,7 @@ export class Address {
   // many addresses will be for one userentity
   @ManyToOne((type) => UserEntity, (user) => user.userId)
   user: UserEntity;
+
+  @ManyToOne((type) => Order, (order) => order.orderId)
+  orderId: Order;
 }

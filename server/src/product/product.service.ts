@@ -24,14 +24,11 @@ export class ProductService {
     });
   }
 
-  findAll(page: number, size: number, query: string, minPrice:number, maxPrice:number, idOrder:string, priceOrder:string) {
+  findAll(page: number, size: number) {
     return this.productRepository
       .findAndCount({
         take: size,
         skip: (page - 1) * size,
-        // where: { productName: Like(`%${query}%`), productPrice: Between(minPrice, maxPrice) },
-        // order: { productId: 'ASC', productPrice: 'ASC' },
-        
       })
       .then((res) => ({
         totalItems: res[1],
@@ -67,6 +64,12 @@ export class ProductService {
       return this.productRepository.find({
         order: {
           productPrice: "DESC",
+        },
+      });
+    else if (field === "name")
+      return this.productRepository.find({
+        order: {
+          productName: "ASC",
         },
       });
   }
