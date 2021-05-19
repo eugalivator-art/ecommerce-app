@@ -5,7 +5,7 @@ import Demo from "./Demo";
 import Product from "./components/Product";
 import ProductList from "./containers/ProductList";
 import Currency from "./components/Currency";
-import Checkout from "./containers/Checkout";
+import Checkout from "./containers/CheckoutDummy";
 import ThemeSwitch from "./components/ThemeSwitch";
 import { ThemeContext } from "./context";
 import AppRouter from "./AppRouter";

@@ -33,8 +33,14 @@ export class AddressService {
     });
   }
 
-  findAll() {
-    return this.addressRepository.find();
+  findAll(uid:string, oid:number) {
+    return this.addressRepository.find({
+      where:{orderId:oid, user:uid}
+    }).then((data) => {
+      if (data.length == 0) throw new
+        NotFoundException();
+      return data;
+    });
   }
 
   async findOne(id: number) {

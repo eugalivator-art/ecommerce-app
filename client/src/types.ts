@@ -3,6 +3,7 @@ export type StoreType = {
   cart: CartType[];
   userSession: UserSessionType;
   loading: boolean;
+  profile: number;
 };
 
 export type ProductType = {
@@ -53,6 +54,30 @@ export type PostResponseType = {
   expir: number
 }
 
+export type OrderType = {
+  orderShippingDate: number,
+  orderDate: number,
+  orderId: number,
+  orderAmount: number,
+  orderStatus: string,
+}
+
+export type OrderDetailType = {
+  orderDetailId: number,
+  orderShippingDate: number,
+  itemAmount: number,
+  quantity: number,
+  productIdProductId: number,
+}
+
+export type AddressType = {
+  line1: string,
+  line2: string,
+  city: string,
+  state: string,
+  country: string,
+}
+
 export type RegisterResponseType = {
   userName: string;
   userEmail: number;
@@ -61,4 +86,7 @@ export type RegisterResponseType = {
 export type UserSessionType = {
   user: object | null;
   error: string | null;
+  
 };
+
+

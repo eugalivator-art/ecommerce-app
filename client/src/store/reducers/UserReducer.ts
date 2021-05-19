@@ -6,7 +6,7 @@ interface IAction extends Action {
   user?: object;
   error?: string;
 }
-const initialState: UserSessionType = { user: null, error: null };
+const initialState: UserSessionType = { user: null, error: null};
 function userReducer(
   storeData: UserSessionType = initialState,
   action: IAction
@@ -18,6 +18,7 @@ function userReducer(
       return { user: null, error: action.error };
     case UserActions.ActionTypes.SIGN_OUT:
       return initialState;
+    
     default:
       return storeData;
   }

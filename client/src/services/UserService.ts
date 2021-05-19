@@ -27,7 +27,7 @@ const profile = () => {
 };
 
 const getOrders = () => {
-  const url = `${constants.BASE_URL}/auth/orders`;
+  const url = `${constants.BASE_URL}/orders`;
   return StorageService.getData("token").then((token) =>
     axios.get(url, {
       headers: { Authorization: `Bearer ${token}` },
@@ -36,7 +36,7 @@ const getOrders = () => {
 }
 
 const getOrderDetails = (oid:number) => {
-  const url = `${constants.BASE_URL}/auth/orderdetail`;
+  const url = `${constants.BASE_URL}/orderdetail`;
   return StorageService.getData("token").then((token) =>
     axios.get(url,  {
       data: {orderId:oid},
@@ -45,19 +45,21 @@ const getOrderDetails = (oid:number) => {
   );
 }
 
-const getAddress = () => {
+const getAddress = (oid:number) => {
   const url = `${constants.BASE_URL}/auth/address`;
   return StorageService.getData("token").then((token) =>
     axios.get(url, {
+      data:{orderId:oid},
       headers: { Authorization: `Bearer ${token}` },
     })
   );
 }
 
-const getPayment = () => {
-  const url = `${constants.BASE_URL}/auth/payment`;
+const getPayment = (oid:number) => {
+  const url = `${constants.BASE_URL}/payment`;
   return StorageService.getData("token").then((token) =>
     axios.get(url, {
+      data:{orderId:oid},
       headers: { Authorization: `Bearer ${token}` },
     })
   );

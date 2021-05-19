@@ -38,7 +38,7 @@ export class OrderdetailsService {
 
   findAll(uid: string, oid: number) {
     return this.orderDetailRepository.find({
-      where: { orderId: oid, userId:uid }
+      where: { orderId: oid, user:uid }
     }).then((data) => {
       if (data.length == 0) throw new NotFoundException();
       return data;
